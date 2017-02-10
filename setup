@@ -1,21 +1,55 @@
 #!/usr/bin/env bash
 
+#vim
+cp -R .vim* ~/. 
+
 if [ "$(uname)" == "Darwin" ]; then
     # Install homebrew
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-    # Node
-    brew install node
+elif [ "$(uname)" == "Linux" ]; then
+    # vim
+    sudo apt-get update
+    sudo apt-get install -y vim
+    # Instal dependencies and Linuxbrew
+    sudo apt-get install -y build-essential perl curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
 
-    # Hyper
-    brew cask install hyper
-    pushd ~/.hyper_plugins && npm i && popd
-    cp .hyper.js ~/
+    export PATH="$HOME/.linuxbrew/bin:$PATH"
+    export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+    export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 fi
 
+# Node
+brew update
+brew install node
+
+# Hyper
+if [ "$(uname)" == "Darwin" ]; then
+    brew cask install hyper
+elif [ "$(uname)" == "Linux" ]; then
+    curl -O https://hyper-updates.now.sh/download/linux_deb 
+    sudo dkpg -i linux_deb
+    sudo apt-get -f install
+fi
+
+pushd ~/.hyper_plugins && npm i && popd
+cp .hyper.js ~/
+
 # oh-my-zsh
+if [ "$(uname)" == "Linux" ]; then
+    sudo apt-get install -y zsh
+fi
+
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-cp .zshrc_mac ~/.zshrc
+
+# zsh config
+if [ "$(uname)" == "Darwin" ]; then
+    cp .zshrc_mac ~/.zshrc
+elif [ "$(uname)" == "Linux" ]; then
+    cp .zshrc_linux ~/.zshrc
+fi
+
 
 # power-line fonts
 git clone https://github.com/powerline/fonts
