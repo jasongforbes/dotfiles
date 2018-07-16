@@ -22,6 +22,7 @@ elif [ "$(uname)" == "Linux" ]; then
     # vim
     sudo apt-get update
     sudo apt-get install -y vim
+    sudo apt-get install -y tmux
     # Instal dependencies and Linuxbrew
     sudo apt-get install -y build-essential perl curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
@@ -76,3 +77,9 @@ if [[ $(uname) =~ MING.* ]]; then
 else
     fonts/install.sh
 rm -rf fonts
+
+# append bash helpers to .bashrc
+cat .bash_helpers.sh >> ~/.bashrc
+
+# tmux
+cp .tmux.conf ~/
