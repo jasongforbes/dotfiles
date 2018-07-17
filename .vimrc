@@ -191,5 +191,5 @@ function! HasPaste()
     return ''
 endfunction
 
-:command Fix :%s/\v(pick) ([a-z0-9]+) [fF]ixup (.*)/f \2 \3/g
+:command Fix :%s/\v(pick) ([a-z0-9]+) [fF]ixup(.*)/f \2 \3/g
 
