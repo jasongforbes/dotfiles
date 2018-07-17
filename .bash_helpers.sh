@@ -16,6 +16,6 @@ log(){
     send-keys 'vi SOMEDAY.txt' C-m\;
 }
 
-if [[ ${TERM_PROGRAM} =~ Hyper.* ]]; then
+if [[ ${TERM} =~ xterm.* ]]; then
     exec zsh
 fi
