@@ -1,0 +1,8 @@
+{
+    "editor.renderWhitespace": "all",
+    "terminal.integrated.shell.linux": "/usr/bin/zsh",
+    "terminal.integrated.fontFamily": "Droid Sans Mono for Powerline",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "editor.renderFinalNewline": true
+}
