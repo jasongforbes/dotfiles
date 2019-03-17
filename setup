@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #vim
-cp -R .vim* ~/. 
+cp -R .vim* ~/.
 
 if [ "$(uname)" == "Darwin" ]; then
     # Install homebrew
@@ -11,38 +11,9 @@ if [ "$(uname)" == "Darwin" ]; then
     brew install node
 
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    
+
     # Hyper
     brew cask install hyper
-
-    pushd ~/.hyper_plugins && npm i && popd
-    cp .hyper.js ~/
-
-elif [ "$(uname)" == "Linux" ]; then
-    # vim
-    sudo apt-get update
-    sudo apt-get install -y vim
-    sudo apt-get install -y tmux
-    # Instal dependencies and Linuxbrew
-    sudo apt-get install -y build-essential perl curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
-
-    export PATH="$HOME/.linuxbrew/bin:$PATH"
-    export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-    export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-    
-    # Node
-    brew update
-    brew install node
-
-    # Zsh
-    sudo apt-get install -y zsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-    # Hyper
-    curl -O https://hyper-updates.now.sh/download/linux_deb 
-    sudo dkpg -i linux_deb
-    sudo apt-get -f install
 
     pushd ~/.hyper_plugins && npm i && popd
     cp .hyper.js ~/
@@ -51,7 +22,7 @@ elif [[ $(uname) =~ MINGW.* ]]; then
     pacman -S zsh
     pacman -S tmux
     powershell -Command "Start-Process PowerShell \"Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) \" -Verb RunAs -Wait"
-    
+
     rm -rf ~/.oh-my-zsh
     git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
@@ -64,19 +35,15 @@ fi
 # zsh config
 if [ "$(uname)" == "Darwin" ]; then
     cp .zshrc_mac ~/.zshrc
-elif [ "$(uname)" == "Linux" ]; then
-    cp .zshrc_linux ~/.zshrc
-else
+elif [ "$(uname)" =~ MING.* ]; then
     co .zshrc_windows ~/.zshrc
 fi
 
 # power-line fonts
-git clone https://github.com/powerline/fonts
 if [[ $(uname) =~ MING.* ]]; then
+    git clone https://github.com/powerline/fonts
     powershell -Command "Start-Process PowerShell \".\\fonts\\install.ps1\" -Verb RunAs -Wait -NoNewWindow"
-else
-    fonts/install.sh
-rm -rf fonts
+    rm -rf fonts
 
 # append bash helpers to .bashrc
 cat .bash_helpers.sh >> ~/.bashrc
